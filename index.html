@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Showmates · TV shows, anime and movies with friends</title>
+<meta name="description" content="Track TV shows, anime and movies, watch with friends, play quizzes and challenges. Spoiler-free.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><div class="bar">
+  <a class="brand" href="index.html"><span class="logo"></span>Showmates</a>
+  <nav><a href="#" data-set-lang="it" lang="it">IT</a><a href="#" data-set-lang="en" lang="en">EN</a></nav>
+</div></header>
+
+<main>
+<section lang="it" data-lang="it">
+  <div class="hero">
+    <h1>Showmates</h1>
+    <p class="lead">Serie TV, anime e film da seguire insieme agli amici. Senza spoiler.</p>
+    <p class="updated" style="margin-top:14px">In arrivo su Google Play.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><h3>Tieni il conto</h3><p>Episodi e film visti, cosa viene dopo, quanto ti manca e quando escono le nuove puntate.</p></div>
+    <div class="card"><h3>Stasera cosa guardo?</h3><p>Dici quanto tempo hai e che voglia hai: scegliamo noi. Anche in gruppo.</p></div>
+    <div class="card"><h3>Patti di visione</h3><p>Guarda una serie al passo con un amico, senza rovinarvi niente a vicenda.</p></div>
+    <div class="card"><h3>Sfide e quiz</h3><p>Sfida gli amici sulle serie che avete visto, solo fin dove siete arrivati.</p></div>
+    <div class="card"><h3>Ripassino senza spoiler</h3><p>Il riassunto di quello che è successo finora, prima del prossimo episodio.</p></div>
+    <div class="card"><h3>Il tuo anno in serie</h3><p>Statistiche e un Wrapped da condividere.</p></div>
+  </div>
+  <div class="links">
+    <a href="it/privacy.html">Informativa sulla privacy</a>
+    <a href="it/terms.html">Termini d'uso</a>
+    <a href="it/delete-account.html">Eliminare l'account</a>
+    <a href="mailto:support@showmates.app">support@showmates.app</a>
+  </div>
+</section>
+
+<section lang="en" data-lang="en">
+  <div class="hero">
+    <h1>Showmates</h1>
+    <p class="lead">TV shows, anime and movies to follow together with your friends. Spoiler-free.</p>
+    <p class="updated" style="margin-top:14px">Coming soon to Google Play.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><h3>Keep track</h3><p>Episodes and movies watched, what's next, how much is left and when new episodes air.</p></div>
+    <div class="card"><h3>What should I watch tonight?</h3><p>Tell us how much time you've got and what you're in the mood for: we'll pick. In a group too.</p></div>
+    <div class="card"><h3>Watch pacts</h3><p>Watch a show in step with a friend, without spoiling anything for each other.</p></div>
+    <div class="card"><h3>Challenges and quizzes</h3><p>Challenge your friends on the shows you've watched, only up to where you both are.</p></div>
+    <div class="card"><h3>Spoiler-free recap</h3><p>A recap of what happened so far, before the next episode.</p></div>
+    <div class="card"><h3>Your year in shows</h3><p>Stats and a Wrapped to share.</p></div>
+  </div>
+  <div class="links">
+    <a href="en/privacy.html">Privacy Policy</a>
+    <a href="en/terms.html">Terms of Use</a>
+    <a href="en/delete-account.html">Delete your account</a>
+    <a href="mailto:support@showmates.app">support@showmates.app</a>
+  </div>
+</section>
+</main>
+<footer><p>Showmates · Andrea Caselli · <em>This product uses the TMDB API but is not endorsed or certified by TMDB.</em></p></footer>
+<script>
+  // una lingua alla volta: quella scelta, altrimenti quella del browser (senza JavaScript si vedono entrambe)
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('lang'); } catch (e) {}
+    function show(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-lang]').forEach(function (s) { s.hidden = s.getAttribute('data-lang') !== lang; });
+    }
+    show(saved || ((navigator.language || 'en').toLowerCase().indexOf('it') === 0 ? 'it' : 'en'));
+    document.querySelectorAll('[data-set-lang]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var l = a.getAttribute('data-set-lang');
+        try { localStorage.setItem('lang', l); } catch (err) {}
+        show(l);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
