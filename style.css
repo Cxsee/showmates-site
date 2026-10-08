@@ -74,6 +74,10 @@ footer a { color: var(--muted); }
 .wait button:disabled { opacity: .6; cursor: default; }
 .wait label { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--muted); margin-top: 10px; }
 .wait label input { margin-top: 4px; accent-color: var(--gold); }
+.wait .plat { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; border: 0; padding: 0; margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+.wait .plat legend { float: left; padding: 0; margin-right: 4px; }
+.wait .plat label { margin: 0; color: var(--text); align-items: center; }
+.wait .plat label input { margin: 0; }
 .wait .msg { min-height: 1.6em; margin: 10px 0 0; font-size: 15px; font-weight: 700; }
 .wait .msg.ok { color: var(--accent); }
 .wait .msg.err { color: #d9534f; }
