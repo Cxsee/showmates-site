@@ -27,6 +27,7 @@
       <div class="row"><input type="email" name="email" required autocomplete="email" placeholder="la-tua@email.it" aria-label="Email"><button type="submit">Avvisami</button></div>
       <fieldset class="plat"><legend>Che telefono hai?</legend><label><input type="radio" name="platform" value="android" required> Android</label><label><input type="radio" name="platform" value="ios"> iPhone</label></fieldset>
       <label><input type="checkbox" name="beta"> Voglio provarla in anteprima</label>
+      <p class="updated" data-invite hidden style="margin:8px 0 0;font-size:13px">Ti ha invitato <b></b>: iscriviti con l&#39;email che userai nell&#39;app e vi ritroverete già collegati.</p>
       <p class="updated" style="margin:8px 0 0;font-size:13px">Ti scriviamo solo per l&#39;uscita e l&#39;anteprima. <a href="it/privacy.html#waitlist">Privacy</a></p>
       <p class="msg" role="status" aria-live="polite"></p>
     </form>
@@ -58,6 +59,7 @@
       <div class="row"><input type="email" name="email" required autocomplete="email" placeholder="you@email.com" aria-label="Email"><button type="submit">Notify me</button></div>
       <fieldset class="plat"><legend>Which phone do you have?</legend><label><input type="radio" name="platform" value="android" required> Android</label><label><input type="radio" name="platform" value="ios"> iPhone</label></fieldset>
       <label><input type="checkbox" name="beta"> I want to try it early</label>
+      <p class="updated" data-invite hidden style="margin:8px 0 0;font-size:13px"><b></b> invited you: sign up with the email you&#39;ll use in the app and you&#39;ll be connected right away.</p>
       <p class="updated" style="margin:8px 0 0;font-size:13px">We only email you about the launch and early access. <a href="en/privacy.html#waitlist">Privacy</a></p>
       <p class="msg" role="status" aria-live="polite"></p>
     </form>
@@ -112,7 +114,11 @@
   // lista d'attesa: chiama join_waitlist su Supabase (chiave anon pubblica, come nell'app). ?src=tiktok dice da dove arriva.
   (function () {
     var URL = 'https://oxwnwmfkjcomforyhjia.supabase.co/rest/v1/rpc/join_waitlist', KEY = 'sb_publishable_9N29QiNkIJ45q303pHiz4w_k1PniuE8';
-    var src = new URLSearchParams(location.search).get('src');
+    var q = new URLSearchParams(location.search), src = q.get('src');
+    // ?u=<username>: link d'invito dall'app; chi si iscrive con la stessa email si ritrova collegato a chi l'ha invitato
+    var inv = (q.get('u') || '').trim().toLowerCase();
+    if (!/^[a-z0-9_.]{3,30}$/.test(inv)) inv = '';
+    if (inv) document.querySelectorAll('[data-invite]').forEach(function (p) { p.hidden = false; p.querySelector('b').textContent = '@' + inv; });
     document.querySelectorAll('[data-wait]').forEach(function (f) {
       var it = f.closest('[data-lang]').getAttribute('data-lang') === 'it', msg = f.querySelector('.msg'), btn = f.querySelector('button');
       function say(t, ok) { msg.textContent = t; msg.className = 'msg ' + (ok ? 'ok' : 'err'); }
@@ -124,7 +130,7 @@
         if (!plat) return say(it ? 'Scegli il tuo telefono.' : 'Pick your phone.', false);
         btn.disabled = true;
         fetch(URL, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: 'Bearer ' + KEY },
-          body: JSON.stringify({ p_email: email, p_lang: it ? 'it' : 'en', p_beta: f.beta.checked, p_platform: plat.value, p_source: src }) })
+          body: JSON.stringify({ p_email: email, p_lang: it ? 'it' : 'en', p_beta: f.beta.checked, p_platform: plat.value, p_source: inv ? 'invite' : src, p_invited_by: inv || null }) })
           .then(function (r) { if (!r.ok) throw r; f.reset(); say(it ? 'Fatto! Ti scriviamo appena esce.' : 'Done! We’ll email you at launch.', true); })
           .catch(function () { say(it ? 'Non è andata, riprova tra poco.' : 'That didn’t work, try again soon.', false); })
           .then(function () { btn.disabled = false; });
