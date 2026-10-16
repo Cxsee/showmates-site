@@ -6,12 +6,12 @@
 <title>Showmates</title>
 <link rel="stylesheet" href="/style.css">
 <script>
-// Link condivisi dall'app (showmates.app/u/<nome>, /l/<lista>, /daily): con l'app installata li apre Android,
+// Link condivisi dall'app (showmates.app/u/<nome>, /l/<lista>, /daily, /t/<tv|movie>/<id>): con l'app installata li apre Android,
 // qui arriva solo chi non ce l'ha. Un profilo diventa un invito alla lista d'attesa; il resto va alla home.
 (function () {
   var p = location.pathname.split('/').filter(Boolean);
   if (p[0] === 'u' && p[1]) { location.replace('/?u=' + encodeURIComponent(decodeURIComponent(p[1])) + '&src=invite'); return; }
-  if (p[0] === 'l' || p[0] === 'daily') { location.replace('/?src=' + (p[0] === 'l' ? 'list' : 'daily')); }
+  if (p[0] === 'l' || p[0] === 'daily' || p[0] === 't') { location.replace('/?src=' + ({l: 'list', daily: 'daily', t: 'title'})[p[0]]); }
 })();
 </script>
 </head>
