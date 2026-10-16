@@ -1,10 +1,13 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "app.showmates",
       "sha256_cert_fingerprints": [
+        "BD:C3:2C:91:91:C0:02:E3:61:31:55:B8:96:1C:46:A2:51:F5:5F:4C:1B:A8:81:F8:6B:0A:63:9E:EC:7C:69:C9",
         "C9:A8:80:5C:EA:E7:72:54:71:5B:4F:2B:09:65:F4:50:97:15:3F:78:12:54:98:2D:BD:DD:B7:75:2E:B7:29:AA",
         "D0:E0:4A:A9:4A:54:72:49:62:48:96:C6:DE:A6:41:1E:D0:31:88:5C:8E:81:7E:4F:45:64:A0:5D:27:E3:97:92"
       ]
