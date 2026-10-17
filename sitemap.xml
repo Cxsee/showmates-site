@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://showmates.app/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://showmates.app/it/privacy.html</loc><lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://showmates.app/it/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://showmates.app/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://showmates.app/en/privacy.html"/>
+  </url>
+  <url><loc>https://showmates.app/en/privacy.html</loc><lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://showmates.app/it/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://showmates.app/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://showmates.app/en/privacy.html"/>
+  </url>
+  <url><loc>https://showmates.app/it/terms.html</loc><lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://showmates.app/it/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://showmates.app/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://showmates.app/en/terms.html"/>
+  </url>
+  <url><loc>https://showmates.app/en/terms.html</loc><lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://showmates.app/it/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://showmates.app/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://showmates.app/en/terms.html"/>
+  </url>
+  <url><loc>https://showmates.app/it/community.html</loc><lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://showmates.app/it/community.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://showmates.app/en/community.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://showmates.app/en/community.html"/>
+  </url>
+  <url><loc>https://showmates.app/en/community.html</loc><lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://showmates.app/it/community.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://showmates.app/en/community.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://showmates.app/en/community.html"/>
+  </url>
+  <url><loc>https://showmates.app/it/delete-account.html</loc><lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://showmates.app/it/delete-account.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://showmates.app/en/delete-account.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://showmates.app/en/delete-account.html"/>
+  </url>
+  <url><loc>https://showmates.app/en/delete-account.html</loc><lastmod>2026-10-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://showmates.app/it/delete-account.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://showmates.app/en/delete-account.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://showmates.app/en/delete-account.html"/>
+  </url>
+</urlset>
