@@ -116,3 +116,28 @@ footer a { color: var(--muted); }
   .js .card:not(.in) { opacity: 1; translate: none; }
   .hero h1 { background: none; color: var(--text); }
 }
+
+/* ---- quiz di prova (try.html) ---- */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.quiz .spoiler { font-size: 14px; color: var(--muted); }
+.quiz h2.q { font: 30px/1.1 "Bebas", Impact, sans-serif; letter-spacing: .5px; margin: 18px 0 14px; }
+.quiz .opts { list-style: none; padding: 0; margin: 0; }
+.quiz .opts li { margin: 0 0 10px; }
+.quiz button { font-family: inherit; font-size: 16px; font-weight: 700; line-height: 1.35; cursor: pointer; }
+.quiz .opt { width: 100%; min-height: 54px; display: flex; align-items: center; gap: 10px; text-align: left;
+  padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+.quiz .opt span:first-child { flex: 1; }
+.quiz .opt:hover:not([aria-disabled]) { border-color: var(--gold); }
+.quiz .opt[aria-disabled] { cursor: default; }
+.quiz .opt.right { border: 2px solid #2e9e5b; background: rgba(46,158,91,.14); }
+.quiz .opt.wrong { border: 2px solid #d9534f; background: rgba(217,83,79,.12); }
+.quiz .mark { font-size: 20px; font-weight: 800; }
+.quiz .right .mark, .quiz .verdict.ok { color: #2e9e5b; }
+.quiz .wrong .mark, .quiz .verdict.err { color: #d9534f; }
+.quiz .verdict { font-weight: 800; margin: 6px 0 10px; }
+.quiz button.pill { border: 0; margin-top: 6px; }
+.quiz .score { font: 88px/1 "Bebas", Impact, sans-serif; color: var(--gold); text-align: center; margin: 24px 0 4px; }
+.quiz .score + .updated { text-align: center; }
+.quiz .again { display: block; margin: 16px 0 0; background: none; border: 0; padding: 8px 0; color: var(--accent); text-decoration: underline; }
+.quiz :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.quiz h2.q:focus, .quiz .score:focus { outline: none; }

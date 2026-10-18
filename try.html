@@ -6,7 +6,7 @@
 <title>Quiz di prova · Showmates</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="Prova un quiz di Showmates: serie TV, anime e film con gli amici, senza spoiler. · Try a Showmates quiz.">
-<link rel="canonical" href="https://showmates.app/">
+<link rel="canonical" href="https://showmates.app/try">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Showmates">
 <meta property="og:title" content="Quiz di prova · Showmates">
@@ -23,16 +23,133 @@
 <meta name="twitter:description" content="Serie TV, anime e film da seguire con gli amici. Senza spoiler. · TV shows, anime and movies with your friends.">
 <meta name="twitter:image" content="https://showmates.app/img/og.png">
 <link rel="stylesheet" href="/style.css">
-<script>
-// Link condiviso dall'app (showmates.app/try): con l'app installata lo apre Android, qui arriva solo chi non ce l'ha.
-location.replace('/?src=try');
-</script>
+<link rel="icon" href="/img/favicon.png">
+<meta name="theme-color" content="#09090c">
 </head>
 <body>
-<header class="top"><div class="bar"><a class="brand" href="/"><span class="logo"></span>Showmates</a></div></header>
-<main>
-<h1>Quiz di prova · Showmates</h1>
-<p><a href="/?src=try">showmates.app</a></p>
+<header class="top"><div class="bar">
+  <a class="brand" href="/?src=try"><span class="logo"></span>Showmates</a>
+  <nav><a href="#" data-set-lang="it" lang="it">IT</a><a href="#" data-set-lang="en" lang="en">EN</a></nav>
+</div></header>
+<!-- Link condiviso dall'app (showmates.app/try): con l'app installata lo apre Android, qui arriva chi non ce l'ha
+     e gioca il quiz di prova (la sfida del giorno di ieri, da daily_preview) senza account. -->
+<main class="quiz">
+  <h1 data-t="title">Quiz di prova</h1>
+  <div id="quiz" aria-busy="true"><p class="updated" data-t="loading">Carico il quiz…</p></div>
+  <!-- esito letto dai lettori di schermo: resta fuori da #quiz, che viene ridisegnato a ogni risposta -->
+  <p id="live" class="sr" role="status" aria-live="polite"></p>
+  <noscript><p>Il quiz di prova ha bisogno di JavaScript. · The sample quiz needs JavaScript. <a href="/?src=try">showmates.app</a></p></noscript>
 </main>
+<footer><p>Showmates · <em>This product uses the TMDB API but is not endorsed or certified by TMDB.</em></p></footer>
+<script>
+(function () {
+  // stessa RPC pubblica dell'app (GuestQuizScreen) e stessa chiave anon pubblicabile della lista d'attesa in index.html
+  var URL = 'https://oxwnwmfkjcomforyhjia.supabase.co/rest/v1/rpc/daily_preview', KEY = 'sb_publishable_9N29QiNkIJ45q303pHiz4w_k1PniuE8';
+  var T = {
+    it: { title: 'Quiz di prova', loading: 'Carico il quiz…', none: 'Oggi non c’è un quiz di prova. Riprova domani!',
+          error: 'Non è andata, riprova tra poco.', retry: 'Riprova',
+          progress: 'Domanda {n} di {total} · {show}', spoiler: 'Domande su {show}: potrebbero svelare qualcosa della trama.',
+          right: 'Giusta!', wrong: 'Sbagliata. La risposta giusta è: {a}', rightMark: 'risposta giusta', wrongMark: 'la tua risposta',
+          next: 'Avanti', result: 'Vedi il risultato', score: 'risposte giuste su {show}',
+          pitch: 'Showmates sta arrivando: con l’app giochi la sfida del giorno con la classifica, sfidi gli amici sulle serie che seguite e tieni il conto di tutto quello che guardi.',
+          join: 'Iscriviti alla lista d’attesa', again: 'Rigioca' },
+    en: { title: 'Sample quiz', loading: 'Loading the quiz…', none: 'There’s no sample quiz today. Try again tomorrow!',
+          error: 'That didn’t work, try again soon.', retry: 'Try again',
+          progress: 'Question {n} of {total} · {show}', spoiler: 'Questions about {show} may reveal plot details.',
+          right: 'Correct!', wrong: 'Wrong. The right answer is: {a}', rightMark: 'right answer', wrongMark: 'your answer',
+          next: 'Next', result: 'See your score', score: 'right answers on {show}',
+          pitch: 'Showmates is coming soon: with the app you play the daily challenge with the leaderboard, challenge your friends on the shows you both follow and keep track of everything you watch.',
+          join: 'Join the waitlist', again: 'Play again' }
+  };
+  var root = document.getElementById('quiz'), live = document.getElementById('live'), lang, data = null, failed = false, i = 0, correct = 0, picked = null;
+
+  function t(k, v) { return T[lang][k].replace(/\{(\w+)\}/g, function (_, n) { return v[n]; }); }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function btn(cls, text, fn) { var b = el('button', cls, text); b.type = 'button'; b.addEventListener('click', fn); return b; }
+  function show() { var s = (data && data.show) || {}; return (lang === 'en' && s.name_en) || s.name || ''; }
+  function qs() { return (data && data.questions) || []; }
+  function loc(q, k) { return lang === 'en' && q.question_en != null ? q[k + '_en'] : q[k]; }
+
+  // focus: dopo il cambio di schermata va all'elemento giusto (titolo della domanda, bottone Avanti, punteggio)
+  function render(focus) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-t]').forEach(function (e) { e.textContent = T[lang][e.getAttribute('data-t')]; });
+    document.title = T[lang].title + ' · Showmates';
+    document.querySelectorAll('[data-set-lang]').forEach(function (a) {
+      if (a.getAttribute('data-set-lang') === lang) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+    root.textContent = '';
+    if (focus !== 'next') live.textContent = '';
+    if (failed) { root.append(el('p', 'updated', T[lang].error), btn('pill', T[lang].retry, load)); return; }
+    if (!data) { root.append(el('p', 'updated', T[lang].loading)); return; }
+    var list = qs(), name = show(), target = null;
+    if (!list.length) { root.append(el('p', 'updated', T[lang].none)); return; }
+    if (i >= list.length) {
+      var sc = el('p', 'score', correct + ' / ' + list.length); sc.tabIndex = -1; target = sc;
+      var join = el('a', 'pill', T[lang].join); join.href = '/?src=try';
+      root.append(sc, el('p', 'updated', t('score', { show: name })), el('p', null, T[lang].pitch), join,
+        btn('again', T[lang].again, function () { i = 0; correct = 0; picked = null; render('q'); }));
+    } else {
+      var q = list[i], opts = loc(q, 'options') || [], answer = +q.answer;
+      root.append(el('p', 'updated', t('progress', { n: i + 1, total: list.length, show: name })));
+      if (i === 0) root.append(el('p', 'box spoiler', t('spoiler', { show: name })));
+      var h = el('h2', 'q', loc(q, 'question')); h.tabIndex = -1; root.append(h);
+      if (focus === 'q') target = h;
+      var ul = el('ul', 'opts');
+      opts.forEach(function (o, k) {
+        var b = btn('opt', null, function () {
+          if (picked != null) return;
+          picked = k; if (k === answer) correct++;
+          render('next');
+        });
+        b.append(el('span', null, o));
+        if (picked != null) {
+          // giusta/sbagliata anche con un segno e un testo nascosto per i lettori di schermo, non solo col colore
+          b.setAttribute('aria-disabled', 'true');
+          if (k === answer) { b.classList.add('right'); b.append(el('span', 'mark', '✓'), el('span', 'sr', ' (' + T[lang].rightMark + ')')); }
+          else if (k === picked) { b.classList.add('wrong'); b.append(el('span', 'mark', '✗'), el('span', 'sr', ' (' + T[lang].wrongMark + ')')); }
+        }
+        var li = el('li'); li.append(b); ul.append(li);
+      });
+      root.append(ul);
+      if (picked != null) {
+        var said = picked === answer ? T[lang].right : t('wrong', { a: opts[answer] });
+        var v = el('p', 'verdict ' + (picked === answer ? 'ok' : 'err'), (picked === answer ? '✓ ' : '✗ ') + said);
+        v.setAttribute('aria-hidden', 'true'); root.append(v);
+        if (focus === 'next') live.textContent = said;
+        var ex = loc(q, 'explanation'); if (ex) root.append(el('p', 'updated', ex));
+        var nx = btn('pill', i + 1 < list.length ? T[lang].next : T[lang].result, function () { i++; picked = null; render(i < list.length ? 'q' : 'end'); });
+        root.append(nx);
+        if (focus === 'next') target = nx;
+      }
+    }
+    root.setAttribute('aria-busy', 'false');
+    if (target) target.focus();
+  }
+
+  function load() {
+    failed = false; data = null; render();
+    // nessun dato personale: solo la chiave anon pubblica, nessun parametro
+    fetch(URL, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: 'Bearer ' + KEY }, body: '{}' })
+      .then(function (r) { if (!r.ok) throw r; return r.json(); })
+      .then(function (d) { data = d || {}; render(); })
+      .catch(function () { failed = true; render(); });
+  }
+
+  // lingua: quella scelta sul sito, altrimenti quella del browser (come index.html)
+  var saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  lang = saved === 'it' || saved === 'en' ? saved : ((navigator.language || 'en').toLowerCase().indexOf('it') === 0 ? 'it' : 'en');
+  document.querySelectorAll('[data-set-lang]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      lang = a.getAttribute('data-set-lang');
+      try { localStorage.setItem('lang', lang); } catch (err) {}
+      render();
+    });
+  });
+  load();
+})();
+</script>
 </body>
 </html>
