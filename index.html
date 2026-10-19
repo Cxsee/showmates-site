@@ -7,6 +7,9 @@
 <meta name="description" content="Track TV shows, anime and movies, watch with friends, play quizzes and challenges. Spoiler-free.">
 <link rel="canonical" href="https://showmates.app/">
 <link rel="alternate" hreflang="x-default" href="https://showmates.app/">
+<!-- la home è una pagina sola con le due lingue: ?lang= sceglie quale mostrare, così i motori hanno un indirizzo per lingua (voce 87) -->
+<link rel="alternate" hreflang="it" href="https://showmates.app/?lang=it">
+<link rel="alternate" hreflang="en" href="https://showmates.app/?lang=en">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Showmates">
 <meta property="og:title" content="Showmates · Serie TV, anime e film con gli amici">
@@ -122,7 +125,9 @@
       document.documentElement.lang = lang;
       document.querySelectorAll('[data-lang]').forEach(function (s) { s.hidden = s.getAttribute('data-lang') !== lang; });
     }
-    show(saved || ((navigator.language || 'en').toLowerCase().indexOf('it') === 0 ? 'it' : 'en'));
+    var q = (location.search.match(/[?&]lang=(it|en)(?![a-z])/) || [])[1];
+    if (q) document.querySelector('link[rel=canonical]').href = 'https://showmates.app/?lang=' + q;
+    show(q || saved || ((navigator.language || 'en').toLowerCase().indexOf('it') === 0 ? 'it' : 'en'));
     document.querySelectorAll('[data-set-lang]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
