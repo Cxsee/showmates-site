@@ -2,6 +2,9 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
+<!-- GitHub Pages non manda header: CSP e referrer via meta (frame-ancestors qui non vale) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://oxwnwmfkjcomforyhjia.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Eliminare l'account · Showmates</title>
 <meta name="description" content="Come eliminare il tuo account Showmates e i tuoi dati.">
@@ -28,11 +31,12 @@
   <li>Scorri in fondo, nella <strong>Zona pericolosa</strong>, e tocca <strong>Elimina account e dati</strong>.</li>
   <li>Scegli come:
     <ul>
-      <li><strong>Elimina account</strong>: la foto del profilo sparisce subito; l'account e tutti i dati vengono cancellati dopo <strong>14 giorni</strong>. Fino ad allora profilo, commenti e liste restano visibili come prima.</li>
-      <li><strong>Elimina subito</strong>: dopo una seconda conferma cancelliamo subito l'account e tutti i dati, senza possibilità di recuperarli. Se non hai fatto l'accesso di recente, prima ti chiediamo un codice che ti mandiamo via email.</li>
+      <li><strong>Elimina tra 14 giorni</strong>: la foto del profilo sparisce subito (se è sotto una segnalazione ancora in esame resta, non visibile nell'app, al massimo fino alla cancellazione dell'account); l'account e tutti i dati vengono cancellati dopo <strong>14 giorni</strong>. Fino ad allora il profilo diventa privato (lo vedono solo le persone che ti seguono), non ricevi notifiche e gli inviti in sospeso si annullano.</li>
+      <li><strong>Elimina subito</strong>: dopo una seconda conferma cancelliamo subito l'account e tutti i dati, senza possibilità di recuperarli.</li>
     </ul>
   </li>
 </ol>
+<p>In tutti e due i casi, se non hai fatto l'accesso di recente, prima ti chiediamo un codice che ti mandiamo via email.</p>
 <p>Nei 14 giorni puoi cambiare idea: nel Profilo compare un avviso con <strong>Annulla eliminazione</strong>. Passati i 14 giorni la cancellazione è definitiva.</p>
 <p>Prima di eliminare l'account puoi scaricare i tuoi dati: Profilo → Impostazioni → <strong>Esporta i miei dati</strong>.</p>
 
@@ -46,9 +50,11 @@
   <li>Cronologia: serie, anime e film seguiti, episodi e film visti, voti, recensioni, liste, persone (attori, registi…) seguite.</li>
   <li>Attività sociali: follower e persone seguite, richieste, blocchi, reazioni, commenti, "mi piace", risposte nel feed, patti di visione e note.</li>
   <li>Consigli personalizzati: profilo dei gusti, consigli calcolati e i tuoi 👍/👎.</li>
-  <li>Giochi: sfide, tornei, quiz, punteggi e messaggi.</li>
+  <li>Giochi: sfide (spariscono anche per l'avversario, che tiene i biglietti guadagnati), tornei che hai creato (spariscono per tutti), partecipazioni ai tornei, quiz, punteggi e messaggi.</li>
+  <li>Sala trofei: biglietti, decorazioni comprate, trofei e voti dati alle sale degli altri.</li>
   <li>Voti sui contenuti e cronologia dei contenuti già visti.</li>
   <li>Identificativi per le notifiche push.</li>
+  <li>Messaggi all'assistenza.</li>
 </ul>
 <p>I servizi di streaming che hai scelto stanno solo sul telefono e si cancellano quando esci dall'account.</p>
 

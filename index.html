@@ -2,6 +2,9 @@
 <html lang="en" class="js-off">
 <head>
 <meta charset="utf-8">
+<!-- GitHub Pages non manda header: CSP e referrer via meta (frame-ancestors qui non vale) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://oxwnwmfkjcomforyhjia.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Showmates · TV shows, anime and movies with friends</title>
 <meta name="description" content="Track TV shows, anime and movies, watch with friends, play quizzes and challenges. Spoiler-free.">
@@ -29,6 +32,8 @@
 <link rel="icon" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta name="theme-color" content="#09090c">
+<!-- subito, prima del primo disegno: con .js-off il modulo dell'email è nascosto (MEGA-47-4) -->
+<script>document.documentElement.classList.replace('js-off', 'js');</script>
 </head>
 <body>
 <!-- Cloudflare non deve offuscare le email: senza JavaScript diventavano "[email protected]" (audit finale, voce 392) -->
@@ -49,10 +54,11 @@
       <div class="row"><input type="email" name="email" required autocomplete="email" placeholder="la-tua@email.it" aria-label="Email"><button type="submit">Avvisami</button></div>
       <fieldset class="plat"><legend>Che telefono hai?</legend><label><input type="radio" name="platform" value="android" required> Android</label><label><input type="radio" name="platform" value="ios"> iPhone</label></fieldset>
       <label><input type="checkbox" name="beta"> Voglio provarla in anteprima</label>
-      <p class="updated" data-invite hidden style="margin:8px 0 0;font-size:13px">Ti ha invitato <b></b>: iscriviti con l&#39;email che userai nell&#39;app e vi ritroverete già collegati.</p>
+      <p class="updated" data-invite hidden style="margin:8px 0 0;font-size:13px">Ti ha invitato <b></b>: iscriviti con l&#39;email che userai nell&#39;app e, appena entri, troverai la sua richiesta per seguirti.</p>
       <p class="updated" style="margin:8px 0 0;font-size:13px">Ti scriviamo solo per l&#39;uscita e l&#39;anteprima. <a href="it/privacy.html#waitlist">Privacy</a></p>
       <p class="msg" role="status" aria-live="polite"></p>
     </form>
+    <noscript><p class="updated">Per iscriverti serve JavaScript.</p></noscript>
   </div>
   <div class="ticker" aria-hidden="true"><div>Serie TV · Anime · Film · Sfide · Quiz · Patti di visione · Senza spoiler · Serie TV · Anime · Film · Sfide · Quiz · Patti di visione · Senza spoiler · Serie TV · Anime · Film · Sfide · Quiz · Patti di visione · Senza spoiler · </div><div>Serie TV · Anime · Film · Sfide · Quiz · Patti di visione · Senza spoiler · Serie TV · Anime · Film · Sfide · Quiz · Patti di visione · Senza spoiler · Serie TV · Anime · Film · Sfide · Quiz · Patti di visione · Senza spoiler · </div></div>
   <div class="cards">
@@ -83,10 +89,11 @@
       <div class="row"><input type="email" name="email" required autocomplete="email" placeholder="you@email.com" aria-label="Email"><button type="submit">Notify me</button></div>
       <fieldset class="plat"><legend>Which phone do you have?</legend><label><input type="radio" name="platform" value="android" required> Android</label><label><input type="radio" name="platform" value="ios"> iPhone</label></fieldset>
       <label><input type="checkbox" name="beta"> I want to try it early</label>
-      <p class="updated" data-invite hidden style="margin:8px 0 0;font-size:13px"><b></b> invited you: sign up with the email you&#39;ll use in the app and you&#39;ll be connected right away.</p>
+      <p class="updated" data-invite hidden style="margin:8px 0 0;font-size:13px"><b></b> invited you: sign up with the email you&#39;ll use in the app and you&#39;ll find their follow request as soon as you join.</p>
       <p class="updated" style="margin:8px 0 0;font-size:13px">We only email you about the launch and early access. <a href="en/privacy.html#waitlist">Privacy</a></p>
       <p class="msg" role="status" aria-live="polite"></p>
     </form>
+    <noscript><p class="updated">JavaScript is needed to sign up.</p></noscript>
   </div>
   <div class="ticker" aria-hidden="true"><div>TV shows · Anime · Movies · Challenges · Quizzes · Watch pacts · Spoiler-free · TV shows · Anime · Movies · Challenges · Quizzes · Watch pacts · Spoiler-free · TV shows · Anime · Movies · Challenges · Quizzes · Watch pacts · Spoiler-free · </div><div>TV shows · Anime · Movies · Challenges · Quizzes · Watch pacts · Spoiler-free · TV shows · Anime · Movies · Challenges · Quizzes · Watch pacts · Spoiler-free · TV shows · Anime · Movies · Challenges · Quizzes · Watch pacts · Spoiler-free · </div></div>
   <div class="cards">
@@ -109,7 +116,6 @@
 </main>
 <footer><p>Showmates · <em>This product uses the TMDB API but is not endorsed or certified by TMDB.</em></p></footer>
 <script>
-  document.documentElement.classList.replace('js-off', 'js');
   // compaiono scorrendo
   (function () {
     var cards = document.querySelectorAll('.card');
@@ -123,6 +129,8 @@
     try { saved = localStorage.getItem('lang'); } catch (e) {}
     function show(lang) {
       document.documentElement.lang = lang;
+      document.title = lang === 'it' ? 'Showmates · Serie TV, anime e film con gli amici' : 'Showmates · TV shows, anime and movies with friends';
+      document.querySelector('meta[name=description]').content = lang === 'it' ? 'Segui serie TV, anime e film, guardali con gli amici, gioca a quiz e sfide. Senza spoiler.' : 'Track TV shows, anime and movies, watch with friends, play quizzes and challenges. Spoiler-free.';
       document.querySelectorAll('[data-lang]').forEach(function (s) { s.hidden = s.getAttribute('data-lang') !== lang; });
     }
     var q = (location.search.match(/[?&]lang=(it|en)(?![a-z])/) || [])[1];
@@ -143,7 +151,7 @@
   (function () {
     var URL = 'https://oxwnwmfkjcomforyhjia.supabase.co/rest/v1/rpc/join_waitlist', KEY = 'sb_publishable_9N29QiNkIJ45q303pHiz4w_k1PniuE8';
     var q = new URLSearchParams(location.search), src = q.get('src');
-    // ?u=<username>: link d'invito dall'app; chi si iscrive con la stessa email si ritrova collegato a chi l'ha invitato
+    // ?u=<username>: link d'invito dall'app; chi si iscrive con la stessa email trova la richiesta per seguirlo di chi l'ha invitato
     var inv = (q.get('u') || '').trim().toLowerCase();
     if (!/^[a-z0-9_.]{3,30}$/.test(inv)) inv = '';
     if (inv) document.querySelectorAll('[data-invite]').forEach(function (p) { p.hidden = false; p.querySelector('b').textContent = '@' + inv; });

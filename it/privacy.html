@@ -2,6 +2,9 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
+<!-- GitHub Pages non manda header: CSP e referrer via meta (frame-ancestors qui non vale) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://oxwnwmfkjcomforyhjia.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Informativa sulla privacy · Showmates</title>
 <meta name="description" content="Come Showmates tratta i tuoi dati personali.">
@@ -20,7 +23,7 @@
 </div></header>
 <main>
 <h1>Informativa sulla privacy</h1>
-<p class="updated">In vigore dal 1° ottobre 2026 · aggiornata il 17 ottobre 2026 · versione 2026-10</p>
+<p class="updated">In vigore dal 1° ottobre 2026 · aggiornata il 27 ottobre 2026 · versione 2026-10</p>
 
 <div class="box">
 <p><strong>In breve.</strong> Raccogliamo solo quello che serve a far funzionare l'app: il tuo account, quello che guardi e quello che condividi con gli amici. Non vendiamo i tuoi dati, non mostriamo pubblicità e non facciamo profilazione pubblicitaria. Per i consigli personalizzati l'app costruisce un profilo dei tuoi gusti, che puoi spegnere quando vuoi (<a href="#consigli">dettagli</a>). Puoi esportare i tuoi dati o eliminare l'account in qualsiasi momento dall'app.</p>
@@ -47,15 +50,17 @@
   <li>Attività sociali: persone che segui e che ti seguono, richieste di follow, utenti bloccati, reazioni, patti di visione e relative note, scelte di gruppo ("Stasera insieme").</li>
   <li>I commenti e le recensioni che scrivi su serie, film ed episodi (le recensioni le vede chi ti segue, o tutti con il profilo pubblico), i "mi piace" che metti a commenti e liste e le reazioni e le risposte alle attività degli amici nel feed (le risposte le vede chi vede l'attività: chi l'ha fatta e chi la segue).</li>
   <li>Giochi: sfide, tornei, quiz, sfida del giorno, punteggi e messaggi scambiati nelle sfide.</li>
+  <li>La Sala trofei: come la arredi, i trofei, i biglietti guadagnati e spesi e i voti che dai alle sale degli altri.</li>
   <li>I voti 👍/👎 che dai ai contenuti generati dall'app e quali contenuti hai già visto, per non riproporteli.</li>
   <li>Segnalazioni che invii o che riguardano i tuoi contenuti.</li>
+  <li>I messaggi che mandi all'assistenza dall'app (Aiuto → "Scrivici dall'app"), con la versione dell'app e del sistema operativo e la lingua, per poterti rispondere.</li>
   <li>Quali funzioni usi e quando (per esempio: apri l'app, aggiungi una serie, finisci una sfida, condividi il Wrapped), legate al tuo account, per capire cosa migliorare, <strong>solo se le accendi</strong> da Profilo → Impostazioni → "Statistiche d'uso" (per chi si iscrive sono spente). Non le vedono gli altri utenti e non le cediamo a nessuno.</li>
 </ul>
 <h3>Importazione della cronologia (facoltativa)</h3>
 <p>Se importi la cronologia da Netflix (o da TV Time, Trakt, MyAnimeList, Letterboxd, IMDb), il file viene letto sul tuo telefono. Ai nostri server arrivano solo i titoli, per riconoscerli; quelli riconosciuti entrano nella tua cronologia. Da AniList si importa con il nome utente: l'app chiede la tua lista pubblica direttamente ad AniList, senza passare dai nostri server.</p>
 <p>Per usare l'app anche senza rete, il telefono tiene una copia della tua libreria, dei prossimi episodi, del calendario e delle statistiche. La copia si cancella quando esci dall'account.</p>
 <h3>Solo sul telefono</h3>
-<p>I servizi di streaming a cui sei abbonato (Netflix, Prime Video…) restano salvati solo sul telefono, non nel tuo account: li mandiamo ai nostri server solo quando calcoliamo i consigli, per preferire i titoli che puoi vedere, e non li conserviamo. Per questo non compaiono nell'esportazione dei dati e si cancellano quando esci dall'account o cambi telefono.</p>
+<p>I servizi di streaming a cui sei abbonato (Netflix, Prime Video…) restano salvati solo sul telefono, non nel tuo account: li mandiamo ai nostri server solo quando calcoliamo i consigli, per preferire i titoli che puoi vedere. Non salviamo la lista dei servizi; nei consigli calcolati resta solo l'indicazione "Su Netflix" accanto ai titoli che puoi vedere. La lista si cancella quando esci dall'account o cambi telefono.</p>
 <h3>Dati del dispositivo</h3>
 <ul>
   <li>Un identificativo per le notifiche push (Firebase Cloud Messaging), se le permetti.</li>
@@ -73,8 +78,9 @@
   <li><strong>I commenti li vede chiunque apra</strong> quel titolo o quell'episodio. Con il profilo pubblico compaiono con il tuo nome utente e la tua foto; con il profilo privato, chi non ti segue li vede senza nome né foto. Un commento cancellato non mostra più chi l'aveva scritto.</li>
   <li>Le liste pubbliche le vedono tutti; con il profilo privato, solo chi ti segue. Le liste "Con il link" le vede solo chi ha il link.</li>
   <li>Chi fa un patto di visione o una sfida con te vede i progressi che servono al gioco. Nelle classifiche compaiono nome utente e punteggio.</li>
+  <li>La tua Sala trofei (arredamento, trofei e media dei voti ricevuti) la vedono tutti con il profilo pubblico; con il profilo privato, solo gli amici (le persone che vi seguite a vicenda). Se è stata votata, può comparire nella classifica delle sale con nome utente e foto. Chi vota non viene mostrato.</li>
   <li>Se hai i consigli personalizzati accesi, un titolo che hai amato può comparire nei consigli di chi ti segue con il tuo nome utente ("Piaciuta a…"). Lo vede solo chi ti segue.</li>
-  <li>Quando chiedi di eliminare l'account, nei 14 giorni di attesa profilo, commenti e liste restano visibili come prima; poi spariscono.</li>
+  <li>Quando chiedi di eliminare l'account, nei 14 giorni di attesa il profilo diventa privato (lo vedono solo le persone che ti seguono), non ricevi più notifiche e gli inviti in sospeso (sfide, patti, tornei) si annullano. Se annulli l'eliminazione, profilo e notifiche tornano come prima (gli inviti annullati no); altrimenti dopo 14 giorni profilo, commenti e liste spariscono.</li>
   <li>Puoi bloccare chiunque: le persone bloccate non vedono più il tuo profilo e non possono contattarti.</li>
 </ul>
 
@@ -84,7 +90,7 @@
 <tr><td>Creare e gestire l'account, far funzionare l'app e le sue funzioni sociali e di gioco</td><td>Esecuzione del contratto (i Termini d'uso)</td></tr>
 <tr><td>Email di servizio: codici di verifica e di recupero della password</td><td>Esecuzione del contratto</td></tr>
 <tr><td>Notifiche push</td><td>Il tuo consenso, dato con il permesso di Android e revocabile in qualsiasi momento</td></tr>
-<tr><td>Sicurezza, prevenzione degli abusi, limiti d'uso, moderazione delle segnalazioni</td><td>Legittimo interesse a proteggere gli utenti e il servizio, obblighi di legge</td></tr>
+<tr><td>Sicurezza, prevenzione degli abusi (compreso il controllo anti-bot all'iscrizione, se attivo), limiti d'uso, moderazione delle segnalazioni</td><td>Legittimo interesse a proteggere gli utenti e il servizio, obblighi di legge</td></tr>
 <tr><td>Rapporti sugli errori per correggere i bug</td><td>Legittimo interesse; sono accesi di default e puoi opporti disattivandoli da Profilo → Impostazioni → "Invia rapporti sugli errori"</td></tr>
 <tr><td>Consigli personalizzati (profilo dei gusti, vedi sotto)</td><td>Legittimo interesse a suggerirti cosa guardare; puoi opporti in qualsiasi momento da Profilo → Impostazioni → "Consigli personalizzati"</td></tr>
 <tr><td>Eventi d'uso delle funzioni, per capire cosa migliorare</td><td>Il tuo consenso: per chi si iscrive sono spenti e li accendi tu da Profilo → Impostazioni → "Statistiche d'uso". Puoi ritirarlo in qualsiasi momento dallo stesso interruttore (o scrivendo all'indirizzo della sezione 12): smettiamo di registrarli e cancelliamo quelli già raccolti. Chi si era iscritto prima del 17 ottobre 2026 mantiene la scelta che aveva</td></tr>
@@ -114,7 +120,8 @@
 <tr><td>Groq</td><td>Intelligenza artificiale (senza dati personali)</td><td>USA</td></tr>
 <tr><td>The Movie Database (TMDB)</td><td>Dati e immagini di serie e film. Le immagini il telefono le scarica direttamente da TMDB, che vede quindi l'indirizzo IP</td><td>USA</td></tr>
 <tr><td>YouTube (Google)</td><td>Anteprime dei trailer: quando apri la scheda di un titolo che ha trailer, il telefono scarica le immagini di anteprima direttamente da YouTube, che vede quindi l'indirizzo IP. Il video si apre su YouTube solo se lo tocchi, e lì valgono le regole di Google</td><td>UE e USA</td></tr>
-<tr><td>Cloudflare</td><td>Dominio showmates.app e inoltro delle email inviate al supporto</td><td>UE e USA</td></tr>
+<tr><td>Cloudflare</td><td>Dominio showmates.app, inoltro delle email inviate al supporto e controllo anti-bot all'iscrizione, se attivo (Turnstile: vede l'indirizzo IP e alcune informazioni tecniche del telefono, solo durante l'iscrizione)</td><td>UE e USA</td></tr>
+<tr><td>AniList</td><td>Solo se importi da AniList: il telefono chiede la tua lista pubblica direttamente ad AniList, che vede quindi l'indirizzo IP e il nome utente che scrivi</td><td>USA</td></tr>
 <tr><td>GitHub</td><td>Pubblicazione di questo sito e copia di sicurezza notturna del database (cifrata, conservata 30 giorni)</td><td>USA</td></tr>
 </table></div>
 <p>Quando i dati vanno fuori dall'Unione Europea, il trasferimento avviene sulla base della decisione di adeguatezza della Commissione europea (EU-US Data Privacy Framework) per i fornitori aderenti, oppure delle clausole contrattuali standard approvate dalla Commissione.</p>
@@ -122,8 +129,9 @@
 
 <h2>7. Per quanto tempo li conserviamo</h2>
 <ul>
-  <li>Finché hai un account. Quando chiedi di eliminarlo, la foto del profilo sparisce subito e dopo 14 giorni (il tempo per cambiare idea) cancelliamo l'account e tutti i dati collegati.</li>
-  <li>I dati su quali funzioni usi durano 6 mesi.</li>
+  <li>Finché hai un account. Quando chiedi di eliminarlo, la foto del profilo sparisce subito (se è sotto una segnalazione ancora in esame resta, non visibile nell'app, al massimo fino alla cancellazione dell'account) e dopo 14 giorni (il tempo per cambiare idea) cancelliamo l'account e tutti i dati collegati.</li>
+  <li>I dati su quali funzioni usi durano 130 giorni (circa 4 mesi).</li>
+  <li>I messaggi all'assistenza restano finché hai l'account.</li>
   <li>Ogni notte facciamo una copia di sicurezza cifrata del database, conservata 30 giorni: dopo la cancellazione dell'account i tuoi dati possono restare in queste copie fino a 30 giorni, poi spariscono. Le usiamo solo per ripristinare il servizio dopo un guasto.</li>
   <li>Copie tecniche nei sistemi di backup dei fornitori possono restare per un periodo limitato, poi vengono sovrascritte.</li>
   <li>Le segnalazioni di moderazione, con la copia del contenuto segnalato, le conserviamo finché servono a gestire la segnalazione, gli eventuali ricorsi e chi ripete le violazioni, e a difenderci in caso di contestazioni. Quando l'account viene cancellato non sono più collegate a te.</li>
@@ -134,7 +142,7 @@
 <p>Puoi chiederci in qualsiasi momento di accedere ai tuoi dati, correggerli, cancellarli, limitarne il trattamento, opporti al trattamento o riceverli in un formato leggibile (portabilità). Molte cose le fai direttamente dall'app:</p>
 <ul>
   <li>Modificare nome, foto e biografia: dal Profilo. Profilo pubblico o privato: Profilo → Impostazioni (ingranaggio).</li>
-  <li>Esportare i tuoi dati: Profilo → Impostazioni → "Esporta i miei dati".</li>
+  <li>Esportare i tuoi dati: Profilo → Impostazioni → "Esporta i miei dati". Le note interne di moderazione non sono comprese nell'esportazione: puoi chiederle a <a href="mailto:support@showmates.app">support@showmates.app</a>. Delle segnalazioni che ti riguardano ci sono solo quelle accolte, senza chi le ha fatte né il suo testo: quelle ancora in esame o archiviate non sono comprese, per proteggere chi le ha fatte.</li>
   <li>Eliminare l'account: Profilo → Impostazioni → in fondo, "Elimina account e dati", oppure come spiegato nella pagina <a href="delete-account.html">Elimina account</a>.</li>
 </ul>
 <p>Per tutto il resto scrivi a <a href="mailto:support@showmates.app">support@showmates.app</a>: rispondiamo entro 30 giorni. Hai anche il diritto di presentare reclamo al Garante per la protezione dei dati personali (<a href="https://www.garanteprivacy.it">garanteprivacy.it</a>).</p>
@@ -151,7 +159,7 @@
 <h2>12. Contatti</h2>
 <p><a href="mailto:support@showmates.app">support@showmates.app</a></p>
 <h2 id="waitlist">13. Lista d'attesa del sito</h2>
-<p>Prima dell'uscita puoi lasciare la tua email su showmates.app. Salviamo solo l'email, la lingua, che telefono hai (Android o iPhone), se vuoi provare l'app in anteprima, da quale link sei arrivato (per esempio TikTok) e, se hai usato il link d'invito di un amico, il suo nome utente: quando ti iscrivi all'app con la stessa email vi ritrovate collegati. La usiamo solo per avvisarti dell'uscita e, se l'hai chiesto, per invitarti a provarla in anteprima. Base giuridica: il tuo consenso, che puoi ritirare quando vuoi scrivendo a <a href="mailto:support@showmates.app">support@showmates.app</a>. I dati stanno su Supabase (UE) e li cancelliamo al più tardi 6 mesi dopo l'uscita dell'app.</p>
+<p>Prima dell'uscita puoi lasciare la tua email su showmates.app. Salviamo solo l'email, la lingua, che telefono hai (Android o iPhone), se vuoi provare l'app in anteprima, da quale link sei arrivato (per esempio TikTok) e, se hai usato il link d'invito di un amico, il suo nome utente: quando ti iscrivi all'app con la stessa email trovi la sua richiesta per seguirti. La usiamo solo per avvisarti dell'uscita e, se l'hai chiesto, per invitarti a provarla in anteprima. Base giuridica: il tuo consenso, che puoi ritirare quando vuoi scrivendo a <a href="mailto:support@showmates.app">support@showmates.app</a>. Se l'email è già iscritta non cambiamo niente, tranne aggiungere il nome utente dell'amico che ti ha invitato se prima non c'era. Per fermare le iscrizioni automatiche teniamo per circa un'ora un'impronta (hash) dell'indirizzo IP da cui arriva la richiesta, poi la cancelliamo. I dati stanno su Supabase (UE) e li cancelliamo al più tardi 6 mesi dopo l'uscita dell'app.</p>
 </main>
 <footer><p>Showmates · <a href="terms.html">Termini d'uso</a> · <a href="community.html">Regole della community</a> · <a href="delete-account.html">Elimina account</a> · <a href="mailto:support@showmates.app">support@showmates.app</a></p></footer>
 <!--/email_off-->

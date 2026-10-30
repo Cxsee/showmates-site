@@ -2,6 +2,9 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
+<!-- GitHub Pages non manda header: CSP e referrer via meta (frame-ancestors qui non vale) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://oxwnwmfkjcomforyhjia.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Quiz di prova · Showmates</title>
 <meta name="robots" content="noindex">
@@ -52,14 +55,16 @@
           right: 'Giusta!', wrong: 'Sbagliata. La risposta giusta è: {a}', rightMark: 'risposta giusta', wrongMark: 'la tua risposta',
           next: 'Avanti', result: 'Vedi il risultato', score: 'risposte giuste su {show}',
           pitch: 'Showmates sta arrivando: con l’app giochi la sfida del giorno con la classifica, sfidi gli amici sulle serie che seguite e tieni il conto di tutto quello che guardi.',
-          join: 'Iscriviti alla lista d’attesa', again: 'Rigioca' },
+          join: 'Iscriviti alla lista d’attesa', again: 'Rigioca',
+          credit: 'Domanda scritta dall’IA a partire da {source}' },
     en: { title: 'Sample quiz', loading: 'Loading the quiz…', none: 'There’s no sample quiz today. Try again tomorrow!',
           error: 'That didn’t work, try again soon.', retry: 'Try again',
           progress: 'Question {n} of {total} · {show}', spoiler: 'Questions about {show} may reveal plot details.',
           right: 'Correct!', wrong: 'Wrong. The right answer is: {a}', rightMark: 'right answer', wrongMark: 'your answer',
           next: 'Next', result: 'See your score', score: 'right answers on {show}',
           pitch: 'Showmates is coming soon: with the app you play the daily challenge with the leaderboard, challenge your friends on the shows you both follow and keep track of everything you watch.',
-          join: 'Join the waitlist', again: 'Play again' }
+          join: 'Join the waitlist', again: 'Play again',
+          credit: 'AI-written question based on {source}' }
   };
   var root = document.getElementById('quiz'), live = document.getElementById('live'), lang, data = null, failed = false, i = 0, correct = 0, picked = null;
 
@@ -80,13 +85,15 @@
     });
     root.textContent = '';
     if (focus !== 'next') live.textContent = '';
-    if (failed) { root.append(el('p', 'updated', T[lang].error), btn('pill', T[lang].retry, load)); return; }
+    // MEGA-47-3: occupato solo mentre carica; errore e "nessun quiz" letti dalla regione live
+    root.setAttribute('aria-busy', data || failed ? 'false' : 'true');
+    if (failed) { live.textContent = T[lang].error; root.append(el('p', 'updated', T[lang].error), btn('pill', T[lang].retry, load)); return; }
     if (!data) { root.append(el('p', 'updated', T[lang].loading)); return; }
     var list = qs(), name = show(), target = null;
-    if (!list.length) { root.append(el('p', 'updated', T[lang].none)); return; }
+    if (!list.length) { live.textContent = T[lang].none; root.append(el('p', 'updated', T[lang].none)); return; }
     if (i >= list.length) {
       var sc = el('p', 'score', correct + ' / ' + list.length); sc.tabIndex = -1; target = sc;
-      var join = el('a', 'pill', T[lang].join); join.href = '/?src=try';
+      var join = el('a', 'pill', T[lang].join); join.href = /[?&]src=daily(?![\w-])/.test(location.search) ? '/?src=daily' : '/?src=try';
       root.append(sc, el('p', 'updated', t('score', { show: name })), el('p', null, T[lang].pitch), join,
         btn('again', T[lang].again, function () { i = 0; correct = 0; picked = null; render('q'); }));
     } else {
@@ -118,12 +125,19 @@
         v.setAttribute('aria-hidden', 'true'); root.append(v);
         if (focus === 'next') live.textContent = said;
         var ex = loc(q, 'explanation'); if (ex) root.append(el('p', 'updated', ex));
+        // domande scritte dall'IA da TVmaze o Wikipedia: fonte e licenza CC BY-SA, come nell'app (BIG-TXT-11-1/11-2)
+        if (q.credit) {
+          var cr = el('p', 'updated', t('credit', { source: '' }).replace(/\s*$/, ' '));
+          var src = /^https:\/\/[a-z-]+\.wikipedia\.org\//.test(q.credit_url || '') ? el('a', null, q.credit) : el('span', null, q.credit);
+          if (src.tagName === 'A') { src.href = q.credit_url; src.rel = 'noopener'; }
+          var lic = el('a', null, 'CC BY-SA 4.0'); lic.href = 'https://creativecommons.org/licenses/by-sa/4.0/'; lic.rel = 'license noopener';
+          cr.append(src, ' (', lic, ')'); root.append(cr);
+        }
         var nx = btn('pill', i + 1 < list.length ? T[lang].next : T[lang].result, function () { i++; picked = null; render(i < list.length ? 'q' : 'end'); });
         root.append(nx);
         if (focus === 'next') target = nx;
       }
     }
-    root.setAttribute('aria-busy', 'false');
     if (target) target.focus();
   }
 

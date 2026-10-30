@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- GitHub Pages non manda header: CSP e referrer via meta (frame-ancestors qui non vale) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://oxwnwmfkjcomforyhjia.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Delete your account · Showmates</title>
 <meta name="description" content="How to delete your Showmates account and your data.">
@@ -28,11 +31,12 @@
   <li>Scroll to the bottom, to the <strong>Danger zone</strong>, and tap <strong>Delete account and data</strong>.</li>
   <li>Choose how:
     <ul>
-      <li><strong>Delete account</strong>: your profile photo goes away right now; the account and all your data are deleted after <strong>14 days</strong>. Until then your profile, comments and lists stay visible as before.</li>
-      <li><strong>Delete now</strong>: after a second confirmation we delete the account and all your data right away, and they can't be recovered. If you haven't signed in recently, we first ask for a code that we send you by email.</li>
+      <li><strong>Delete in 14 days</strong>: your profile photo goes away right now (if it is under a report still being reviewed it stays, not shown in the app, at most until the account is deleted); the account and all your data are deleted after <strong>14 days</strong>. Until then your profile becomes private (only your followers can see it), you get no notifications and pending invites are canceled.</li>
+      <li><strong>Delete now</strong>: after a second confirmation we delete the account and all your data right away, and they can't be recovered.</li>
     </ul>
   </li>
 </ol>
+<p>In both cases, if you haven't signed in recently, we first ask for a code that we send you by email.</p>
 <p>During those 14 days you can change your mind: a notice with <strong>Cancel deletion</strong> appears in your Profile. After 14 days the deletion is final.</p>
 <p>Before deleting your account you can download your data: Profile → Settings → <strong>Export my data</strong>.</p>
 
@@ -46,9 +50,11 @@
   <li>History: shows, anime and movies you follow, episodes and movies watched, ratings, reviews, lists, people (actors, directors…) you follow.</li>
   <li>Social activity: followers and people you follow, requests, blocks, reactions, comments, likes, replies in the feed, watch pacts and notes.</li>
   <li>Personalized recommendations: taste profile, computed recommendations and your 👍/👎.</li>
-  <li>Games: challenges, tournaments, quizzes, scores and messages.</li>
+  <li>Games: challenges (they also disappear for your opponent, who keeps the tickets they earned), tournaments you created (they disappear for everyone), tournament entries, quizzes, scores and messages.</li>
+  <li>Trophy room: tickets, decorations you bought, trophies and ratings you gave to other people's rooms.</li>
   <li>Your votes on content and the history of content you've already seen.</li>
   <li>Push notification identifiers.</li>
+  <li>Messages to support.</li>
 </ul>
 <p>The streaming services you picked are stored only on your phone and are cleared when you sign out.</p>
 

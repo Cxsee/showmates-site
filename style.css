@@ -10,6 +10,9 @@
   --muted: #6b6253;
   --line: #e6dcc6;
   --head: #09090c;
+  /* esiti leggibili sull'avorio (4,5:1 e oltre); col tema scuro tornano quelli vivi */
+  --ok: #1f7a43;
+  --err: #b3261e;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -20,6 +23,8 @@
     --text: #f1ece2;
     --muted: #a39d92;
     --line: #2a2830;
+    --ok: #2e9e5b;
+    --err: #d9534f;
   }
 }
 * { box-sizing: border-box; }
@@ -69,7 +74,7 @@ footer a { color: var(--muted); }
 .hero h1 { font-size: 64px; }
 .wait { max-width: 460px; margin: 26px auto 0; text-align: left; }
 .wait .row { display: flex; gap: 8px; }
-.wait input[type=email] { flex: 1; min-width: 0; font: inherit; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+.wait input[type=email] { flex: 1; min-width: 0; font: inherit; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--muted); background: var(--surface); color: var(--text); }
 .wait button { font: 20px/1 "Bebas", Impact, sans-serif; letter-spacing: 1px; padding: 0 18px; border: 0; border-radius: 12px; background: var(--gold); color: #1f1503; cursor: pointer; }
 .wait button:disabled { opacity: .6; cursor: default; }
 .wait label { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--muted); margin-top: 10px; }
@@ -80,7 +85,9 @@ footer a { color: var(--muted); }
 .wait .plat label input { margin: 0; }
 .wait .msg { min-height: 1.6em; margin: 10px 0 0; font-size: 15px; font-weight: 700; }
 .wait .msg.ok { color: var(--accent); }
-.wait .msg.err { color: #d9534f; }
+.wait .msg.err { color: var(--err); }
+/* senza JavaScript il modulo farebbe una GET con l'email nell'indirizzo: si nasconde (c'è il <noscript>) */
+.js-off .wait { display: none; }
 
 /* ---- animazioni (spente con "riduci movimento") ---- */
 .hero { position: relative; isolation: isolate; }
@@ -129,14 +136,14 @@ footer a { color: var(--muted); }
 .quiz .opt span:first-child { flex: 1; }
 .quiz .opt:hover:not([aria-disabled]) { border-color: var(--gold); }
 .quiz .opt[aria-disabled] { cursor: default; }
-.quiz .opt.right { border: 2px solid #2e9e5b; background: rgba(46,158,91,.14); }
-.quiz .opt.wrong { border: 2px solid #d9534f; background: rgba(217,83,79,.12); }
+.quiz .opt.right { border: 2px solid var(--ok); background: rgba(46,158,91,.14); }
+.quiz .opt.wrong { border: 2px solid var(--err); background: rgba(217,83,79,.12); }
 .quiz .mark { font-size: 20px; font-weight: 800; }
-.quiz .right .mark, .quiz .verdict.ok { color: #2e9e5b; }
-.quiz .wrong .mark, .quiz .verdict.err { color: #d9534f; }
+.quiz .right .mark, .quiz .verdict.ok { color: var(--ok); }
+.quiz .wrong .mark, .quiz .verdict.err { color: var(--err); }
 .quiz .verdict { font-weight: 800; margin: 6px 0 10px; }
 .quiz button.pill { border: 0; margin-top: 6px; }
-.quiz .score { font: 88px/1 "Bebas", Impact, sans-serif; color: var(--gold); text-align: center; margin: 24px 0 4px; }
+.quiz .score { font: 88px/1 "Bebas", Impact, sans-serif; color: var(--accent); text-align: center; margin: 24px 0 4px; }
 .quiz .score + .updated { text-align: center; }
 .quiz .again { display: block; margin: 16px 0 0; background: none; border: 0; padding: 8px 0; color: var(--accent); text-decoration: underline; }
 .quiz :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }

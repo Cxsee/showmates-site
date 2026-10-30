@@ -2,15 +2,18 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
+<!-- GitHub Pages non manda header: CSP e referrer via meta (frame-ancestors qui non vale) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://oxwnwmfkjcomforyhjia.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sfida del giorno · Showmates</title>
 <meta name="robots" content="noindex">
-<meta name="description" content="Ogni giorno una sfida sulle serie e i film che hai visto, con la classifica tra amici. · A daily challenge on the shows and movies you have watched.">
+<meta name="description" content="Ogni giorno 5 domande su una serie, uguali per tutti, con la classifica. · Every day 5 questions on one show, the same for everyone, with a leaderboard.">
 <link rel="canonical" href="https://showmates.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Showmates">
 <meta property="og:title" content="Sfida del giorno · Showmates">
-<meta property="og:description" content="Ogni giorno una sfida sulle serie e i film che hai visto, con la classifica tra amici. · A daily challenge on the shows and movies you have watched.">
+<meta property="og:description" content="Ogni giorno 5 domande su una serie, uguali per tutti, con la classifica. · Every day 5 questions on one show, the same for everyone, with a leaderboard.">
 <meta property="og:image" content="https://showmates.app/img/og.png">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="500">
@@ -20,19 +23,20 @@
 <meta property="og:url" content="https://showmates.app/daily">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sfida del giorno · Showmates">
-<meta name="twitter:description" content="Serie TV, anime e film da seguire con gli amici. Senza spoiler. · TV shows, anime and movies with your friends.">
+<meta name="twitter:description" content="Ogni giorno 5 domande su una serie, uguali per tutti, con la classifica. · Every day 5 questions on one show, the same for everyone, with a leaderboard.">
 <meta name="twitter:image" content="https://showmates.app/img/og.png">
 <link rel="stylesheet" href="/style.css">
 <script>
-// Link condiviso dall'app (showmates.app/daily): con l'app installata lo apre Android, qui arriva solo chi non ce l'ha.
-location.replace('/?src=daily');
+// Link condiviso dall'app (showmates.app/daily): con l'app installata lo apre Android, qui arriva solo chi non ce l'ha
+// e gioca il quiz di prova; alla fine il pulsante porta alla lista d'attesa con ?src=daily (MEGA-47-5).
+location.replace('/try?src=daily');
 </script>
 </head>
 <body>
 <header class="top"><div class="bar"><a class="brand" href="/"><span class="logo"></span>Showmates</a></div></header>
 <main>
 <h1>Sfida del giorno · Showmates</h1>
-<p><a href="/?src=daily">showmates.app</a></p>
+<p><a href="/try?src=daily">showmates.app/try</a></p>
 </main>
 </body>
 </html>
