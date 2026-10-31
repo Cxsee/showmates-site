@@ -154,6 +154,15 @@
     // ?u=<username>: link d'invito dall'app; chi si iscrive con la stessa email trova la richiesta per seguirlo di chi l'ha invitato
     var inv = (q.get('u') || '').trim().toLowerCase();
     if (!/^[a-z0-9_.]{3,30}$/.test(inv)) inv = '';
+    // una visita per sessione: provenienza, pagina, lingua e dominio da cui arriva (niente IP né dati personali)
+    try {
+      if (!sessionStorage.getItem('v')) {
+        sessionStorage.setItem('v', '1');
+        var ref = ''; try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (e) {}
+        fetch(URL.replace('join_waitlist', 'log_visit'), { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: 'Bearer ' + KEY },
+          body: JSON.stringify({ p_source: inv ? 'invite' : src, p_path: location.pathname, p_lang: document.documentElement.lang === 'it' ? 'it' : 'en', p_referrer: ref }) }).catch(function () {});
+      }
+    } catch (e) {}
     if (inv) document.querySelectorAll('[data-invite]').forEach(function (p) { p.hidden = false; p.querySelector('b').textContent = '@' + inv; });
     document.querySelectorAll('[data-wait]').forEach(function (f) {
       var it = f.closest('[data-lang]').getAttribute('data-lang') === 'it', msg = f.querySelector('.msg'), btn = f.querySelector('button');
