@@ -53,7 +53,7 @@
       <p class="updated" data-invite hidden style="margin:8px 0 0;font-size:13px">Ti ha invitato <b></b>: iscriviti con l&#39;email che userai nell&#39;app e, appena entri, troverai la sua richiesta per seguirti.</p>
       <p class="msg" role="status" aria-live="polite"></p>
       <div class="more" hidden>
-        <p class="updated" style="margin:0">Grazie! Se ti va, ultima cosa:</p>
+        <p class="updated" style="margin:0">Facoltativo:</p>
         <fieldset class="plat"><legend>Che telefono hai?</legend><label><input type="radio" name="platform" value="android"> Android</label><label><input type="radio" name="platform" value="ios"> iPhone</label></fieldset>
         <label><input type="checkbox" name="beta"> Voglio provarla in anteprima</label>
       </div>
@@ -90,7 +90,7 @@
       <p class="updated" data-invite hidden style="margin:8px 0 0;font-size:13px"><b></b> invited you: sign up with the email you&#39;ll use in the app and you&#39;ll find their follow request as soon as you join.</p>
       <p class="msg" role="status" aria-live="polite"></p>
       <div class="more" hidden>
-        <p class="updated" style="margin:0">Thanks! One last thing, if you like:</p>
+        <p class="updated" style="margin:0">Optional:</p>
         <fieldset class="plat"><legend>Which phone do you have?</legend><label><input type="radio" name="platform" value="android"> Android</label><label><input type="radio" name="platform" value="ios"> iPhone</label></fieldset>
         <label><input type="checkbox" name="beta"> I want to try it early</label>
       </div>
@@ -174,8 +174,9 @@
     document.querySelectorAll('[data-wait]').forEach(function (f) {
       var it = f.closest('[data-lang]').getAttribute('data-lang') === 'it', msg = f.querySelector('.msg'), btn = f.querySelector('button');
       function say(t, ok) { msg.textContent = t; msg.className = 'msg ' + (ok ? 'ok' : 'err'); }
-      var more = f.querySelector('.more'), done = '';
-      f.email.addEventListener('focus', function () { ev('form_start'); }, { once: true });
+      var more = f.querySelector('.more');
+      // telefono e anteprima compaiono al primo tocco e partono con l'iscrizione: il server non aggiorna una riga gia' esistente (MEGA-47-1)
+      f.email.addEventListener('focus', function () { more.hidden = false; ev('form_start'); }, { once: true });
       function join(email) {
         var plat = f.querySelector('[name=platform]:checked');
         return fetch(URL, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: 'Bearer ' + KEY },
@@ -189,12 +190,10 @@
         btn.disabled = true;
         ev('submit');
         join(email)
-          .then(function () { ev('signup_ok'); done = email; f.email.value = ''; more.hidden = false; say(it ? 'Fatto! Ti scriviamo appena esce.' : 'Done! We’ll email you at launch.', true); })
+          .then(function () { ev('signup_ok'); f.reset(); more.hidden = true; say(it ? 'Fatto! Ti scriviamo appena esce.' : 'Done! We’ll email you at launch.', true); })
           .catch(function () { ev('signup_error'); say(it ? 'Non è andata, riprova tra poco.' : 'That didn’t work, try again soon.', false); })
           .then(function () { btn.disabled = false; });
       });
-      // telefono e anteprima dopo l'iscrizione: la stessa email aggiorna la riga. Se non va, l'iscrizione resta valida
-      more.addEventListener('change', function () { if (done) join(done).catch(function () {}); });
     });
   })();
 </script>
